@@ -1,44 +1,50 @@
-import express from "express";
-import axios from "axios";
-import {getListingIds, getRent} from './functions';
-import {formatRent} from './formatters';
+import express from 'express';
+import axios from 'axios';
+import {
+  getListingIds,
+  getRent,
+  getAddress,
+  getHousingType,
+  getBedrooms,
+  getUtilities,
+  getDateAvailable,
+  getLeaseTerm,
+  getLocation,
+  getDistance,
+  getDescription,
+  getImages,
+} from './getters';
+import {format} from './formatters';
 
 const app = express();
 
-app.get("*", async (req, res) => {
+app.get("/", async (req, res) => {
   try {
     const response = await axios.get('https://offcampus.uwo.ca/listings/');
     const listingPage = JSON.stringify(response.data);
     const listingIds = getListingIds(listingPage);
 
-    const detailUrl = `https://offcampus.uwo.ca/Listings/Details/${listingIds[0]}`;
-    const detailResponse = await axios.get(detailUrl);
-    const detailPage = JSON.stringify(detailResponse.data);
-    const full = {
-      url: detailUrl,
-      address: detailPage.match(/(?<=class=\\"detail-intro\\">).+?(?=<)/)[0],
-      rent: formatRent(getRent(detailPage))
-    };
-
-
-    console.log(full);
-
-    res.send(full);
-    // console.log("details:", listingIds);
-
-    // const addressRegex = /<div class=\\"rental-listing-details\\">.+?<\/a>/g;
-    // const addresses = listings
-    //   .map((listing) => {
-    //     // Map over each listing to extract all the relevant information
-    //     const matches = listing.match(addressRegex);
-    //     const innerRegex = /.+<h2><strong>.+?>/;
-    //     return matches[0].replace(innerRegex, "").slice(0, -4);
-    //   })
-    //   .filter((address) => {
-    //     const noAddressRegex = /Near South|Old North|Near West|Downtown|Masonville|North London|On Campus|Whitehills/g;
-    //     return address.match(noAddressRegex) === null;
-    //   });
-    // res.send(listings);
+    const all = await Promise.all(listingIds.map(async (id) => {
+      const detailUrl = `https://offcampus.uwo.ca/Listings/Details/${id}`;
+      const detailResponse = await axios.get(detailUrl);
+      const detailPage = JSON.stringify(detailResponse.data);
+      return {
+        url: detailUrl,
+        address: format(getAddress(detailPage)),
+        rent: format(getRent(detailPage)),
+        type: getHousingType(detailPage),
+        bedrooms: getBedrooms(detailPage),
+        utilities: getUtilities(detailPage),
+        available: getDateAvailable(detailPage),
+        lease: format(getLeaseTerm(detailPage)),
+        location: format(getLocation(detailPage)),
+        distance: getDistance(detailPage),
+        description: getDescription(detailPage).trim(),
+        images: getImages(detailPage),
+      };
+    }));
+    console.log(all);
+    res.send(all);
   } catch (error) {
     console.log(error);
   }

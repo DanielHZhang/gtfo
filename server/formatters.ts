@@ -1,3 +1,6 @@
+function pipe(original: string, fns: Function[]) {
+  return fns.reduce<string>((accumulator, func) => func(accumulator), original);
+}
 
 export function removeSlashRN(unformatted: string) {
   return unformatted.replace(/\\r/g, '').replace(/\\n/g, '');
@@ -11,10 +14,6 @@ export function removeExtraWhitespace(unformatted: string) {
   return unformatted.replace(/ +/g, ' ').trim();
 }
 
-export function formatRent(unformatted: string) {
+export function format(unformatted: string) {
   return pipe(unformatted, [removeSlashRN, removeSpanTag, removeExtraWhitespace]);
-}
-
-function pipe(original: string, fns: Function[]) {
-  return fns.reduce<string>((accumulator, func) => func(accumulator), original);
 }
