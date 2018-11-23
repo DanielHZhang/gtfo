@@ -1,8 +1,9 @@
 {
   "env": {
-    "NODE_ENV": "development"
+    "NODE_ENV": "development",
+    "TS_NODE_TRANSPILE_ONLY": true
   },
-  "exec": "cross-env TS_NODE_TRANSPILE_ONLY=true node",
+  "exec": "node",
   "ignore": [
     "node_modules",
     ".vscode",
