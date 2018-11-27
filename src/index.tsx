@@ -1,4 +1,3 @@
-import './index.less';
 import './index.scss';
 
 import React, {ComponentClass} from 'react';

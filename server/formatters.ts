@@ -49,3 +49,7 @@ export function formatRent(unformatted: string, rooms: number) {
   }
   return final;
 }
+
+export function formatAvailable(unformatted: string) {
+  return format(unformatted.replace('Available', ''));
+}
