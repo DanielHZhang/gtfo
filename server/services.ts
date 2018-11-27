@@ -18,7 +18,7 @@ import {format, formatLease, formatRent, formatAvailable} from './formatters';
 import {House} from './house';
 
 export function scheduleGetAllHouses() {
-  cron.schedule('* * * * *', async () => {
+  cron.schedule('0 * * * *', async () => {
     try {
       const response = await Axios.get('https://offcampus.uwo.ca/listings/');
       const listingPage = JSON.stringify(response.data);
