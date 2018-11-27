@@ -27,4 +27,9 @@
     ".vscode",
     ".idea",
   ],
+  "awesomeTypescriptLoaderOptions": {
+    "useCache": true,
+    "forceIsolatedModules": true,
+    "transpileOnly": true
+  }
 }

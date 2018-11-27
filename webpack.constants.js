@@ -2,7 +2,7 @@
 module.exports.PORT = 3000;
 
 /** URL path to which vendor files can be accessed from */
-module.exports.BUILD_URL = `http://localhost${module.exports.PORT}/assets/`;
+module.exports.BUILD_URL = `http://localhost:${module.exports.PORT}/assets/`;
 
 /** Path in the local file system to which the vendor files will be emitted */
 module.exports.BUILD_OUTPUT_PATH = ['build'];
