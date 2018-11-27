@@ -1,1 +1,69 @@
 @import '~antd/dist/antd.css';
+
+.home {
+  width: 100%;
+  height: 100%;
+  padding: 28px 22px;
+
+  .ant-card {
+    margin-bottom: 12px;
+
+    .ant-card-body {
+      padding: 16px;
+
+      .image {
+        border-radius: 4px;
+        width: 100%;
+      }
+
+      .indicator-area {
+        padding: 6px 0;
+
+        .anticon {
+          padding: 0 4px;
+          font-size: 20px;
+        }
+      }
+
+      .carousel-wrapper {
+        position: relative;
+
+        .ant-btn {
+          border: none;
+          background: transparent;
+          position: absolute;
+          height: 100%;
+          top: 0;
+          bottom: 0;
+
+          .anticon {
+            font-size: 24px;
+            color: white;
+            position: absolute;
+            bottom: 5px;
+          }
+
+          &:hover {
+            background: rgba(255, 255, 255, 0.2);
+          }
+        }
+
+        .next-btn {
+          right: 0;
+
+          .anticon {
+            right: 5px;
+          }
+        }
+
+        .prev-btn {
+          left: 0;
+
+          .anticon {
+            left: 5px;
+          }
+        }
+      }
+    }
+  }
+}

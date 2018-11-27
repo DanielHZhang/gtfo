@@ -83,8 +83,7 @@ router.post('/add', async (req, res) => {
 
 router.get('/', async (req, res) => {
   try {
-    const houses = await House.find().lean().exec();
-
+    const houses = await House.find();
     res.send(houses);
   } catch (error) {
     console.log(error);

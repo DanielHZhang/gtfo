@@ -48,10 +48,4 @@ const HouseSchema = new Schema({
   liked: {type: Boolean, default: false},
 });
 
-HouseSchema.pre('save', async function(this: IHouse, next) {
-  const results = await this.model('House').find({address: this.address});
-  console.log('reuslsts:', results);
-  next();
-});
-
 export const House = model<IHouse, IHouseModel>('House', HouseSchema);
