@@ -54,7 +54,7 @@ export function scheduleGetAllHouses() {
         if (house.rent.value > 700) {
           return false;
         }
-        if (house.rent.value > 600 && !house.utilities) {
+        if (house.rent.value > 610 && !house.utilities) {
           return false;
         }
         if (house.distance > 1.5) {
